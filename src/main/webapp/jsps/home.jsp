@@ -83,8 +83,5 @@
         <p>Client IP Address: <%= clientIP %></p>
         <p>Browser: <%= request.getHeader("User-Agent") %></p>
         <hr>
-        
-        }
-    %>
 </body>
 </html>
