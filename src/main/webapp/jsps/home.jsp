@@ -47,10 +47,12 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="center-image">
-            <img src="https://www.annexit.com/wp-content/uploads/2020/07/annexit_logo.png" alt="Annexit Logo">
-        </div>
+<div class="container">
+    <div class="center-image">
+        <img src="https://www.annexit.com/wp-content/uploads/2020/07/annexit_logo.png" alt="Annexit Logo" style="transform: scale(0.7);">
+    </div>
+    ...
+</div>
         <h1>Welcome to Sample Maven Project</h1>
         <hr>
         <h3>Server Side IP Address</h3>
@@ -75,8 +77,8 @@
             // Hide the first two octets of the IP address
             String[] octets = clientIP.split("\\.");
             if (octets.length >= 2) {
-                octets[0] = "****";
-                octets[1] = "****";
+                octets[0] = "*";
+                octets[1] = "*";
                 clientIP = String.join(".", octets);
             }
         %>
