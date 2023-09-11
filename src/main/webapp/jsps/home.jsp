@@ -13,11 +13,11 @@
             padding: 20px;
             text-align: center;
         }
-        
+
         h1 {
             color: #333;
         }
-        
+
         .container {
             background-color: #fff;
             border: 1px solid #ccc;
@@ -26,20 +26,20 @@
             margin: 0 auto;
             max-width: 600px;
         }
-        
+
         hr {
             border: none;
             height: 1px;
             background-color: #ccc;
             margin: 20px 0;
         }
-        
+
         .center-image {
             display: flex;
             justify-content: center;
             margin-bottom: 20px;
         }
-        
+
         .center-image img {
             max-width: 100%;
             height: auto;
@@ -71,9 +71,28 @@
             if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
                 clientIP = request.getRemoteAddr();
             }
+
+            // Hide the first two octets of the IP address
+            String[] octets = clientIP.split("\\.");
+            if (octets.length >= 2) {
+                octets[0] = "****";
+                octets[1] = "****";
+                clientIP = String.join(".", octets);
+            }
         %>
         <p>Client IP Address: <%= clientIP %></p>
         <p>Browser: <%= request.getHeader("User-Agent") %></p>
+        <hr>
+        <h3>Server Memory and CPU Information</h3>
+        <%
+            Runtime runtime = Runtime.getRuntime();
+            long freeMemory = runtime.freeMemory();
+            long totalMemory = runtime.totalMemory();
+            int availableProcessors = runtime.availableProcessors();
+        %>
+        <p>Free Memory: <%= freeMemory %> bytes</p>
+        <p>Total Memory: <%= totalMemory %> bytes</p>
+        <p>Number of CPUs: <%= availableProcessors %></p>
         <hr>
     </div>
 </body>
