@@ -11,17 +11,16 @@
 
 	<description>Maven Web Project for Java Project</description>
 
-	<properties>
-		<jdk.version>1.8</jdk.version>
-		<spring.version>5.1.2.RELEASE</spring.version>
-		<junit.version>4.11</junit.version>
-		<log4j.version>1.2.17</log4j.version>
-		<sonar.host.url>http://18.138.81.149:9000/</sonar.host.url>
-		<sonar.token>admin</sonar.token>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-	</properties>
+    <properties>
+        <jdk.version>1.8</jdk.version>
+        <spring.version>5.1.2.RELEASE</spring.version>
+        <junit.version>4.11</junit.version>
+        <log4j.version>1.2.17</log4j.version>
+        <sonar.host.url>http://172.31.45.132:9000/</sonar.host.url>
+        <sonar.token>squ_a2e2525c89e5d0c38d31d09de3dbd065b31e7cf0</sonar.token>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
 
 	<dependencies>
 		
@@ -87,21 +86,20 @@
 		
 	</dependencies>
 	
-	<distributionManagement>
-	
-	    <repository>
-	      <id>nexus</id>
-	      <name>Releases Nexus Repository</name>
-	      <url>http://54.255.174.111:8081/repository/flipkart-release/</url>
-	    </repository>
-	    
-	    <snapshotRepository>
-	      <id>nexus</id>
-	      <name>Snapshot Nexus Repository </name>
-	      <url>http://54.255.174.111:8081/repository/flipkart-snapshot/</url>
-	    </snapshotRepository>
-	    
-	</distributionManagement>
+<distributionManagement>
+	<repository>
+      <id>nexus</id>
+      <name>Releases nexus repository</name>
+      <url>http://172.31.45.132:8081/repository/firstproject-releases/</url>
+    </repository>
+    
+    <snapshotRepository>
+      <id>nexus</id>
+      <name>Snapshot nexus repository </name>
+      <url>http://172.31.45.132:8081/repository/firstproject-snapshots/</url>
+    </snapshotRepository>
+    
+</distributionManagement>
 	
 	<build>
 		<finalName>maven-web-application</finalName>
