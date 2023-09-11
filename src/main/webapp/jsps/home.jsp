@@ -49,8 +49,16 @@
         <p>Server IP Address: <%= ip %></p>
         <hr>
         <h3>Client Side IP Address</h3>
-        <p>Client IP Address: <%= request.getRemoteAddr() %></p>
-        <p>Client Name Host: <%= request.getRemoteHost() %></p>
+        <%
+            String clientIP = request.getHeader("X-Forwarded-For");
+            if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
+                clientIP = request.getHeader("X-Real-IP");
+            }
+            if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
+                clientIP = request.getRemoteAddr();
+            }
+        %>
+        <p>Client IP Address: <%= clientIP %></p>
         <hr>
     </div>
 </body>
