@@ -47,12 +47,10 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="center-image">
-        <img src="https://www.annexit.com/wp-content/uploads/2020/07/annexit_logo.png" alt="Annexit Logo" style="transform: scale(0.7);">
-    </div>
-    ...
-</div>
+    <div class="container">
+        <div class="center-image">
+            <img src="https://www.annexit.com/wp-content/uploads/2020/07/annexit_logo.png" alt="Annexit Logo" style="transform: scale(0.7);">
+        </div>
         <h1>Welcome to Sample Maven Project</h1>
         <hr>
         <h3>Server Side IP Address</h3>
@@ -77,8 +75,8 @@
             // Hide the first two octets of the IP address
             String[] octets = clientIP.split("\\.");
             if (octets.length >= 2) {
-                octets[0] = "*";
-                octets[1] = "*";
+                octets[0] = "****";
+                octets[1] = "****";
                 clientIP = String.join(".", octets);
             }
         %>
@@ -88,14 +86,35 @@
         <h3>Server Memory and CPU Information</h3>
         <%
             Runtime runtime = Runtime.getRuntime();
-            long freeMemory = runtime.freeMemory();
-            long totalMemory = runtime.totalMemory();
+            long freeMemoryBytes = runtime.freeMemory();
+            long totalMemoryBytes = runtime.totalMemory();
             int availableProcessors = runtime.availableProcessors();
+
+            // Convert memory values to human-readable format
+            String freeMemory = formatMemory(freeMemoryBytes);
+            String totalMemory = formatMemory(totalMemoryBytes);
         %>
-        <p>Free Memory: <%= freeMemory %> bytes</p>
-        <p>Total Memory: <%= totalMemory %> bytes</p>
+        <p>Free Memory: <%= freeMemory %></p>
+        <p>Total Memory: <%= totalMemory %></p>
         <p>Number of CPUs: <%= availableProcessors %></p>
         <hr>
     </div>
+
+    <%!
+        // Function to format memory value in a human-readable format
+        public String formatMemory(long bytes) {
+            double kilobytes = bytes / 1024.0;
+            double megabytes = kilobytes / 1024.0;
+            double gigabytes = megabytes / 1024.0;
+
+            if (gigabytes >= 1.0) {
+                return String.format("%.2f GB", gigabytes);
+            } else if (megabytes >= 1.0) {
+                return String.format("%.2f MB", megabytes);
+            } else {
+                return String.format("%.2f KB", kilobytes);
+            }
+        }
+    %>
 </body>
 </html>
