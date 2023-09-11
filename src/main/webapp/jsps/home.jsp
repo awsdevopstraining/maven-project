@@ -49,8 +49,6 @@
         %>
         <p>Server IP Address: <%= ip %></p>
         <hr>
-        <h3>Client Side IP Address</h3>
-        <p>Client IP Address: <%= clientIP %></p>
         <p>Browser: <%= request.getHeader("User-Agent") %></p>
         <hr>
     </div>
