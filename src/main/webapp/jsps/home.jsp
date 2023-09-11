@@ -83,37 +83,7 @@
         <p>Client IP Address: <%= clientIP %></p>
         <p>Browser: <%= request.getHeader("User-Agent") %></p>
         <hr>
-        <h3>Server Memory and CPU Information</h3>
-        <%
-            Runtime runtime = Runtime.getRuntime();
-            long freeMemoryBytes = runtime.freeMemory();
-            long totalMemoryBytes = runtime.totalMemory();
-            int availableProcessors = runtime.availableProcessors();
-
-            // Convert memory values to human-readable format
-            String freeMemory = formatMemory(freeMemoryBytes);
-            String totalMemory = formatMemory(totalMemoryBytes);
-        %>
-        <p>Free Memory: <%= freeMemory %></p>
-        <p>Total Memory: <%= totalMemory %></p>
-        <p>Number of CPUs: <%= availableProcessors %></p>
-        <hr>
-    </div>
-
-    <%!
-        // Function to format memory value in a human-readable format
-        public String formatMemory(long bytes) {
-            double kilobytes = bytes / 1024.0;
-            double megabytes = kilobytes / 1024.0;
-            double gigabytes = megabytes / 1024.0;
-
-            if (gigabytes >= 1.0) {
-                return String.format("%.2f GB", gigabytes);
-            } else if (megabytes >= 1.0) {
-                return String.format("%.2f MB", megabytes);
-            } else {
-                return String.format("%.2f KB", kilobytes);
-            }
+        
         }
     %>
 </body>
