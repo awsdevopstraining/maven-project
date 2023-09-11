@@ -37,6 +37,7 @@
 </head>
 <body>
     <div class="container">
+        <img src="https://www.annexit.com/wp-content/uploads/2020/07/annexit_logo.png" alt="Annexit Logo">
         <h1>Welcome to Sample Maven Project</h1>
         <hr>
         <h3>Server Side IP Address</h3>
@@ -49,15 +50,6 @@
         <p>Server IP Address: <%= ip %></p>
         <hr>
         <h3>Client Side IP Address</h3>
-        <%
-            String clientIP = request.getHeader("X-Forwarded-For");
-            if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
-                clientIP = request.getHeader("X-Real-IP");
-            }
-            if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
-                clientIP = request.getRemoteAddr();
-            }
-        %>
         <p>Client IP Address: <%= clientIP %></p>
         <p>Browser: <%= request.getHeader("User-Agent") %></p>
         <hr>
