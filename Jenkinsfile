@@ -11,7 +11,7 @@ echo "Build number is: ${env.BUILD_NUMBER}"
 def mavenHome=tool name: 'maven3.9.3'
 
 stage('CheckOutCode'){
-git branch: 'development', credentialsId: 'c4900e7a-ccd3-4a5a-8604-b81f52bdc0f2', url: 'https://github.com/MithunTechnologiesDevOps/maven-web-application.git'
+git branch: 'main', credentialsId: '', url: 'https://github.com/awsdevopstraining/maven-project.git'
 }
 
 stage('Build'){
@@ -29,7 +29,7 @@ sh "${mavenHome}/bin/mvn clean  deploy"
 
 stage('DeploAppIntoTomcatServer'){
 sshagent(['331ae6af-906c-4d4f-8317-0379a46b437e']) {
-    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.2.79:/opt/apache-tomcat-9.0.76/webapps/"
+    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ubuntu@172.31.2.79:/opt/tomcat/webapps/"
 }
 }
 */
