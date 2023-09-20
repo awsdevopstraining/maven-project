@@ -86,20 +86,6 @@
 		
 	</dependencies>
 	
-<distributionManagement>
-	<repository>
-      <id>nexus</id>
-      <name>Releases nexus repository</name>
-      <url>http://172.31.45.132:8081/repository/firstproject-releases/</url>
-    </repository>
-    
-    <snapshotRepository>
-      <id>nexus</id>
-      <name>Snapshot nexus repository </name>
-      <url>http://172.31.45.132:8081/repository/firstproject-snapshots/</url>
-    </snapshotRepository>
-    
-</distributionManagement>
 	
 	<build>
 		<finalName>maven-web-application</finalName>
