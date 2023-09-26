@@ -1,37 +1,54 @@
-node{
-
-
-echo "Jenkins Home dir is: ${env.JENKINS_HOME}"
-echo "Job name is: ${env.JOB_NAME}"
-echo "Build number is: ${env.BUILD_NUMBER}"
-
-//properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false], [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
-
-
-def mavenHome=tool name: 'maven3.9.3'
-
-stage('CheckOutCode'){
-git branch: 'main', credentialsId: '', url: 'https://github.com/awsdevopstraining/maven-project.git'
+pipeline{
+agent {
+  label 'slave'
 }
 
-stage('Build'){
-sh "${mavenHome}/bin/mvn clean package"
-}
-/*
-stage('ExecuteSonarQubeReport'){
-sh "${mavenHome}/bin/mvn clean sonar:sonar"
+triggers {
+  pollSCM '* * * * *'
 }
 
-stage('UploadArtifactsInotNexus'){
-sh "${mavenHome}/bin/mvn clean  deploy"
+tools{
+maven 'maven3.9.4'
+}
+
+stages{
+stage('git'){
+steps{
+checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/awsdevopstraining/maven-project.git']])
+}
+}
+
+stage('build'){
+steps{
+sh 'mvn package'
+}
+}
+
+stage('SonarQubeReport'){
+steps{
+    withSonarQubeEnv('sonarqube') {
+ sh 'mvn sonar:sonar'
+}
+}
+}
+stage('UploadArtifact'){
+steps{
+nexusArtifactUploader artifacts: [[artifactId: 'maven-web-application', classifier: '', file: 'target/maven-web-application.war', type: 'war']], credentialsId: 'nexuscredentials', groupId: 'com.ak', nexusUrl: '18.61.32.239:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven2-snapshots', version: '0.0.1-SNAPSHOT'
+}
+}
+stage('DeployAppIntoTomcat'){
+steps{
+deploy adapters: [tomcat9(credentialsId: 'tomcatcredentials', path: '', url: 'http://18.61.28.177:8080')], contextPath: null, onFailure: false, war: '**/*.war'
+}
+}
+}
+
+post {
+always {
+emailext body: '$DEFAULT_CONTENT', subject: '$DEFAULT_SUBJECT', to: 'arjunprodev@gmail.com'
+}
+}
+
 }
 
 
-stage('DeploAppIntoTomcatServer'){
-sshagent(['331ae6af-906c-4d4f-8317-0379a46b437e']) {
-    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ubuntu@172.31.2.79:/opt/tomcat/webapps/"
-}
-}
-*/
-
-}
